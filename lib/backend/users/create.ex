@@ -1,9 +1,9 @@
 defmodule Backend.Users.Create do
-  alias Backend.{Repo, User}
+  alias Backend.{Repo, Users}
 
   def call(params) do
     params
-    |> User.changeset()
+    |> Users.changeset()
     |> Repo.insert()
   end
 

@@ -1,4 +1,4 @@
-defmodule Backend.User do
+defmodule Backend.Users do
     use Ecto.Schema
     import Ecto.Changeset
 
