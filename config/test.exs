@@ -7,8 +7,8 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :backend, Backend.Repo,
   username: "postgres",
-  password: "postgres",
-  database: "backend_test#{System.get_env("MIX_TEST_PARTITION")}",
+  password: "pitoco1569",
+  database: "agileDB",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
