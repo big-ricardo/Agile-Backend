@@ -3,7 +3,7 @@ defmodule Backend.Users do
     import Ecto.Changeset
 
     @primary_key {:id, :binary_id, autogenerate: true}
-    @required_params [:name, :email, :password_hash, :nickname, :avatar]
+    @required_params [:name, :email, :password, :nickname, :avatar]
 
     schema "users" do
       field :name, :string
@@ -28,7 +28,7 @@ defmodule Backend.Users do
     end
 
     defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-      change(changeset, Bcrypt.add_hash(password))
+      change(changeset, %{password_hash: password})
     end
 
     defp put_password_hash(changeset), do: changeset

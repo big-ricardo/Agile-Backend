@@ -15,6 +15,8 @@ config :backend, Backend.Repo ,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
