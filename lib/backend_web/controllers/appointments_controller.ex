@@ -1,26 +1,15 @@
-defmodule BackendWeb.UsersController do
+defmodule BackendWeb.AppointmentsController do
   use BackendWeb, :controller
 
-  action_fallback BackendWeb.FallbackController
-
   def create(conn, params)do
-    with {:ok, %Backend.Users{} = user} <- Backend.create_user(params) do
+    with {:ok, %Backend.Appointments{} = user} <- Backend.create_appointment(params) do
       conn
       |> put_status(:created)
       |> render("create.json", user: user)
     end
   end
 
-  def index(conn, _params) do
-    with [%Backend.Users{}] = users <- Backend.select_users() do
-      conn
-      |> put_status(:created)
-      |> render("index.json", users: users)
-    end
-  end
-
-
-  def a(conn, _params)do
+  def index(conn, _params)do
     start = Timex.to_datetime({{2015, 6, 24}, {7, 00, 00}}, "UTC")
     finish = Timex.to_datetime({{2015, 6, 24}, {12, 00, 00}}, "UTC")
 
@@ -35,23 +24,6 @@ defmodule BackendWeb.UsersController do
       false
     end
 
-    tempo = Timex.diff(finish, start, :minutes)
-    espacos = div(tempo, 30)
-
-    range = 0..espacos
-
-    map = Enum.map(range, fn i ->
-      livre = Timex.shift(start, minutes: 30 * i)
-      time = Timex.Interval.new(from: livre,  until: [minutes: 30])
-      if  Elixir.Timex.Interval.contains?(periodoTrabalho, time) do
-        Timex.format!(livre, "%FT%T%:z", :strftime)
-      else
-        ""
-      end
-    end)
-
-    IO.inspect(map)
-
     text conn, "#{result}"
   end
 
@@ -59,5 +31,4 @@ defmodule BackendWeb.UsersController do
     results = Enum.map(reserveds, fn reserved ->  Timex.Interval.overlaps?(reserve, Timex.Interval.new(from: Timex.to_datetime(reserved[:time], "UTC"), until: [minutes: reserved[:duration]])) end)
     !Enum.member?(results, true)
   end
-
 end

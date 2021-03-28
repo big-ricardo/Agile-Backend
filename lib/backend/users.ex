@@ -12,6 +12,7 @@ defmodule Backend.Users do
       field :password_hash, :string
       field :nickname, :string
       field :avatar, :string
+      has_many :services , Backend.Services
 
       timestamps()
     end

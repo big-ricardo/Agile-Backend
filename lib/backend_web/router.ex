@@ -8,9 +8,13 @@ defmodule BackendWeb.Router do
   scope "/api", BackendWeb do
     pipe_through :api
 
-    get "/", UsersController, :index
-
     post "/users", UsersController, :create
+    get "/users", UsersController, :index
+
+    post "/services", ServicesController, :create
+    get "/services", ServicesController, :index
+
+    post "/appointments", AppointmentsController , :create
 
   end
 
