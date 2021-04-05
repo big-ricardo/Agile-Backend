@@ -1,15 +1,25 @@
 defmodule BackendWeb.AppointmentsController do
   use BackendWeb, :controller
 
+  action_fallback BackendWeb.FallbackController
+
   def create(conn, params)do
-    with {:ok, %Backend.Appointments{} = user} <- Backend.create_appointment(params) do
+    with {:ok, %Backend.Appointments{} = appointment} <- Backend.create_appointment(params) do
       conn
       |> put_status(:created)
-      |> render("create.json", user: user)
+      |> render("create.json", appointment: appointment)
     end
   end
 
-  def index(conn, _params)do
+  def index(conn, _params) do
+    with [%Backend.Appointments{} | _rest] = appointments <- Backend.select_appointments() do
+      conn
+      |> put_status(:ok)
+      |> render("index.json", appointments: appointments)
+    end
+  end
+
+  def time(conn, _params)do
     start = Timex.to_datetime({{2015, 6, 24}, {7, 00, 00}}, "UTC")
     finish = Timex.to_datetime({{2015, 6, 24}, {12, 00, 00}}, "UTC")
 

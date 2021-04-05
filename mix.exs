@@ -10,6 +10,7 @@ defmodule Backend.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      dialyzer: [plt_add_apps: [:mix]],
       deps: deps()
     ]
   end
@@ -20,7 +21,7 @@ defmodule Backend.MixProject do
   def application do
     [
       mod: {Backend.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :guardian, :runtime_tools]
     ]
   end
 
@@ -45,7 +46,9 @@ defmodule Backend.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:tzdata, "~> 1.1"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:guardian, "~> 2.0"}
       # {:bcrypt_elixir, "~> 2.0"}
     ]
   end

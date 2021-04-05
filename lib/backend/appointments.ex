@@ -4,12 +4,11 @@ defmodule Backend.Appointments do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  @required_params [:service, :price, :seller]
+  @required_params [:services_id, :date_time, :users_id]
 
   schema "appointments" do
-    belongs_to :user, Backend.Users
-    belongs_to :service, Backend.Services
-    belongs_to :seller, Backend.Users
+    belongs_to :services, Backend.Services
+    belongs_to :users, Backend.Users
     field :date_time, :string
     timestamps()
   end

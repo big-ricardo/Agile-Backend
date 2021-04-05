@@ -13,6 +13,7 @@ defmodule Backend.Users do
       field :nickname, :string
       field :avatar, :string
       has_many :services , Backend.Services
+      has_many :appointments , Backend.Appointments
 
       timestamps()
     end
@@ -28,11 +29,18 @@ defmodule Backend.Users do
       |> put_password_hash()
     end
 
+    def changeset_sign_in(params)do
+      %__MODULE__{}
+      |> cast(params, [:email, :password])
+      |> validate_required([:email, :password])
+      |> validate_length(:password, min: 6)
+      |> validate_format(:email, ~r/@/)
+    end
+
     defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
       change(changeset, %{password_hash: password})
     end
 
     defp put_password_hash(changeset), do: changeset
-
 
 end

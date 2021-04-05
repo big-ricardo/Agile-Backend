@@ -5,16 +5,34 @@ defmodule BackendWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BackendWeb do
-    pipe_through :api
+  pipeline :auth do
+    plug Backend.Session.Pipeline
+  end
 
+  # We use ensure_auth to fail if there is no one logged in
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth]
+
+    post "/sign_in", SessionController, :sign_in
     post "/users", UsersController, :create
+
+  end
+
+  scope "/api", BackendWeb do
+    pipe_through [:api, :auth, :ensure_auth]
+
     get "/users", UsersController, :index
+    get "/user", UsersController, :show
 
     post "/services", ServicesController, :create
     get "/services", ServicesController, :index
 
     post "/appointments", AppointmentsController , :create
+    get "/appointments", AppointmentsController , :index
 
   end
 

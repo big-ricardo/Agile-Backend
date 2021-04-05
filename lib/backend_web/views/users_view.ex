@@ -1,11 +1,12 @@
 defmodule BackendWeb.UsersView do
   use BackendWeb, :view
 
-  def render("create.json", %{user: %Backend.Users{} = user}) do
+  def render("create.json", %{user: user}) do
+    IO.inspect(user)
     %{
       message: "success",
       error: false,
-      user:  render_many(user, BackendWeb.UsersView, "user.json")
+      user:  render_one(user, BackendWeb.UsersView, "users.json")
     }
   end
 
@@ -13,26 +14,37 @@ defmodule BackendWeb.UsersView do
     %{
       message: "success",
       error: false,
-      data: render_many(users, BackendWeb.UsersView, "user.json")
+      data: render_many(users, BackendWeb.UsersView, "users.json")
     }
   end
 
-  def render("user.json", %{users: users})do
+  def render("show.json", %{user: user}) do
     %{
-      id: users.id,
-      name: users.name,
-      email: users.email,
-      nickname: users.nickname,
-      services: render_many( users.services, BackendWeb.UsersView ,"service.json")
+      message: "success",
+      error: false,
+      data: render_one(user, BackendWeb.UsersView, "user.json")
     }
   end
 
-  def render("service.json", %{users: service})do
+  def render("user.json", %{users: user})do
     %{
-      id: service.id,
-      name: service.name,
-      price: service.price,
-      duration: service.duration
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      nickname: user.nickname,
+      services: render_many( user.services, BackendWeb.ServicesView ,"services.json"),
+      appointments: render_many( user.appointments, BackendWeb.AppointmentsView ,"appointments.json")
+    }
+  end
+
+  def render("users.json", %{users: user})do
+    %{
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      nickname: user.nickname,
+      avatar: user.avatar
     }
   end
 

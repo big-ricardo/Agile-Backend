@@ -3,7 +3,6 @@ defmodule Backend.Users.Index do
 
   def call() do
     Repo.all(Users)
-    |> Repo.preload(:services)
   end
 
 end
