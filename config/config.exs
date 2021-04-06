@@ -15,8 +15,6 @@ config :backend, Backend.Repo ,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
 
-config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
-
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
@@ -35,7 +33,7 @@ config :phoenix, :json_library, Jason
 
 #Config Guardian
 config :backend, Backend.Guardian,
-       issuer: "backend",
+       issuer: "Agile",
        secret_key: "aagYthM2IQKz+B/ZuBT6BkYVhrX1Jtiyf2a8Ro/ThSI2wJ8htXW5/o6V4/veHn3g"
 
 # Import environment specific config. This must remain at the bottom

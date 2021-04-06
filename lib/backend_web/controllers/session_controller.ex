@@ -13,4 +13,13 @@ defmodule BackendWeb.SessionController do
     end
   end
 
+  def sign_up(conn, _params) do
+    with {:ok, _old_stuff, {jwt, _new_claims}} <- Backend.sign_up(Enum.at(Plug.Conn.get_req_header(conn, "token"), 0)) do
+
+      conn
+      |> put_status(:created)
+      |>  render("sign_up.json", jwt: jwt)
+    end
+  end
+
 end

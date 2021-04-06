@@ -12,4 +12,14 @@ defmodule BackendWeb.SessionView do
     }
   end
 
+  def render("sign_up.json", %{jwt: jwt}) do
+    %{
+      error: :false,
+      data: %{
+        token: jwt,
+      },
+      message: "You are successfully logged in! Add this token to authorization header to make authorized requests."
+    }
+  end
+
 end
