@@ -36,6 +36,9 @@ defmodule BackendWeb.Router do
     post "/appointments", AppointmentsController , :create
     get "/appointments", AppointmentsController , :index
 
+    post "/establishments", EstablishmentsController , :create
+    get "/establishments", EstablishmentsController , :index
+
   end
 
   # Enables LiveDashboard only for development

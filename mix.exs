@@ -48,7 +48,9 @@ defmodule Backend.MixProject do
       {:tzdata, "~> 1.1"},
       {:timex, "~> 3.0"},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:geo, "~> 3.1.0"},
+      {:geo_postgis, "~> 3.1.0"}
       # {:bcrypt_elixir, "~> 2.0"}
     ]
   end

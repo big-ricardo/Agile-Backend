@@ -43,4 +43,9 @@ defmodule Backend.Users do
 
     defp put_password_hash(changeset), do: changeset
 
+    def getId(conn)do
+      {:ok, %{"sub"=> id}} = Backend.Guardian.decode_and_verify(Guardian.Plug.current_token(conn))
+     id
+    end
+
 end

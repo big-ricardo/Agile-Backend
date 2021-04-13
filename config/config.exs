@@ -13,7 +13,9 @@ config :backend,
 # UUID como padrão para Ids
 config :backend, Backend.Repo ,
   migration_primary_key: [type: :binary_id],
-  migration_foreign_key: [type: :binary_id]
+  migration_foreign_key: [type: :binary_id],
+  types: Backend.PostgresTypes,
+  extensions: [{Geo.PostGIS.Extension, library: Geo}]
 
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
@@ -34,6 +36,7 @@ config :phoenix, :json_library, Jason
 #Config Guardian
 config :backend, Backend.Guardian,
        issuer: "Agile",
+       ttl: { 1, :weeks },
        secret_key: "aagYthM2IQKz+B/ZuBT6BkYVhrX1Jtiyf2a8Ro/ThSI2wJ8htXW5/o6V4/veHn3g"
 
 # Import environment specific config. This must remain at the bottom

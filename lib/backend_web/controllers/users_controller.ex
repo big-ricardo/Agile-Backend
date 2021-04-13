@@ -20,9 +20,7 @@ defmodule BackendWeb.UsersController do
   end
 
   def show(conn, _params)do
-    {:ok, claims} = Backend.Guardian.decode_and_verify(Guardian.Plug.current_token(conn))
-
-    with {:ok, %Backend.Users{} = user} <- Backend.Guardian.resource_from_claims(claims) do
+    with  %Backend.Users{} = user <- Backend.select_user(Backend.Users.getId(conn)) do
       conn
       |> put_status(:ok)
       |> render("show.json", user: user)

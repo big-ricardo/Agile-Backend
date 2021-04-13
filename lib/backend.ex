@@ -9,6 +9,9 @@ defmodule Backend do
   alias Backend.Services.Create, as: ServiceCreate
   alias Backend.Services.Index, as: ServicesIndex
 
+  alias Backend.Establishments.Index, as: EstablishmentsIndex
+  alias Backend.Establishments.Create, as: EstablishmentsCreate
+
   alias Backend.Appointments.Create, as: AppointmentCreate
   alias Backend.Appointments.Index, as: AppointmentIndex
 
@@ -21,6 +24,9 @@ defmodule Backend do
 
   defdelegate create_service(params), to: ServiceCreate, as: :call
   defdelegate select_services(), to: ServicesIndex, as: :call
+
+  defdelegate create_establishment(params), to: EstablishmentsCreate, as: :call
+  defdelegate select_establishments(params), to: EstablishmentsIndex, as: :call
 
   defdelegate create_appointment(params), to: AppointmentCreate, as: :call
   defdelegate select_appointments(), to: AppointmentIndex, as: :call
