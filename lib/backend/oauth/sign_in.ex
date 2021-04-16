@@ -1,4 +1,4 @@
-defmodule Backend.Users.Sign_in do
+defmodule Backend.Oauth.Sign_in do
 
   alias Backend.{Repo, Users}
 
@@ -15,7 +15,8 @@ defmodule Backend.Users.Sign_in do
         {:error, :not_found}
       user ->
         if password == user.password_hash do
-          {:ok, user}
+          user.id
+          |> Backend.select_user()
         else
           {:error, :unauthorized}
         end

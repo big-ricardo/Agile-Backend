@@ -5,5 +5,5 @@ defmodule Backend.Session.Pipeline do
 
   plug Guardian.Plug.VerifyHeader, claims: %{typ: "access"}
   plug Guardian.Plug.VerifySession, claims: %{typ: "access"}
-  plug Guardian.Plug.LoadResource, allow_blank: true
+  plug Guardian.Plug.LoadResource
 end

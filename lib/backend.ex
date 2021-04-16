@@ -1,7 +1,8 @@
 defmodule Backend do
 
-  alias Backend.Users.Sign_in, as: UserSign_in
-  alias Backend.Users.Sign_up, as: UserSign_up
+  alias Backend.Oauth.Sign_in, as: OauthSign_in
+  alias Backend.Oauth.Refresh, as: OauthRefresh
+
   alias Backend.Users.Create, as: UserCreate
   alias Backend.Users.Index, as: UsersIndex
   alias Backend.Users.Show, as: UserShow
@@ -15,8 +16,8 @@ defmodule Backend do
   alias Backend.Appointments.Create, as: AppointmentCreate
   alias Backend.Appointments.Index, as: AppointmentIndex
 
-  defdelegate sign_in(params), to: UserSign_in, as: :call
-  defdelegate sign_up(params), to: UserSign_up, as: :call
+  defdelegate sign_in(params), to: OauthSign_in, as: :call
+  defdelegate refresh(params), to: OauthRefresh, as: :call
 
   defdelegate create_user(params), to: UserCreate, as: :call
   defdelegate select_users(), to: UsersIndex, as: :call
