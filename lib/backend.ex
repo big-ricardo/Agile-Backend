@@ -24,7 +24,7 @@ defmodule Backend do
   defdelegate select_user(params), to: UserShow, as: :call
 
   defdelegate create_service(params), to: ServiceCreate, as: :call
-  defdelegate select_services(), to: ServicesIndex, as: :call
+  defdelegate select_services(params), to: ServicesIndex, as: :call
 
   defdelegate create_establishment(params), to: EstablishmentsCreate, as: :call
   defdelegate select_establishments(params), to: EstablishmentsIndex, as: :call

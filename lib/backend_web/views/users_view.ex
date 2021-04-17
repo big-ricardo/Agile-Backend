@@ -28,7 +28,6 @@ defmodule BackendWeb.UsersView do
 
   def render("user.json", %{users: user})do
     %{
-      id: user.id,
       name: user.name,
       email: user.email,
       avatar: user.avatar,
@@ -40,7 +39,6 @@ defmodule BackendWeb.UsersView do
 
   def render("users.json", %{users: user})do
     %{
-      id: user.id,
       name: user.name,
       email: user.email,
       nickname: user.nickname,

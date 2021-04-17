@@ -4,18 +4,18 @@ defmodule BackendWeb.ServicesController do
   action_fallback BackendWeb.FallbackController
 
   def create(conn, params)do
-    with {:ok, %Backend.Services{} = service} <- Backend.create_service(params) do
+    with {:ok, %Backend.Services{} = service} <- Backend.create_service(Map.merge(params, %{"users_id"=> Backend.Users.getId(conn)})) do
       conn
       |> put_status(:created)
       |> render("create.json", service: service)
     end
   end
 
-  def index(conn, _params)do
-    with [%Backend.Services{} | _rest] = services <- Backend.select_services() do
+  def index(conn, params)do
+    with %Scrivener.Page{} = page <- Backend.select_services(params) do
       conn
       |> put_status(:ok)
-      |> render("index.json", services: services)
+      |> render("index.json", page: page )
     end
   end
 
