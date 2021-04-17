@@ -14,7 +14,7 @@ defmodule BackendWeb.OauthController do
   end
 
   def refresh(conn, _params) do
-    with {:ok, %Backend.Users{} = user} <- Backend.refresh(Guardian.Plug.current_token(conn)) do
+    with {:ok, user = %Backend.Users{}} <- Backend.refresh(Backend.Users.getToken(conn)) do
       conn
       |> put_status(:created)
       |>  render("refresh.json", user: user)

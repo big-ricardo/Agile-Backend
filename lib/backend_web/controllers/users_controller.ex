@@ -19,6 +19,14 @@ defmodule BackendWeb.UsersController do
     end
   end
 
+  def show(conn, %{"id"=> id})do
+    with  %Backend.Users{} = user <- Backend.select_user(id) do
+      conn
+      |> put_status(:ok)
+      |> render("show.json", user: user)
+    end
+  end
+
   def show(conn, _params)do
     with  %Backend.Users{} = user <- Backend.select_user(Backend.Users.getId(conn)) do
       conn

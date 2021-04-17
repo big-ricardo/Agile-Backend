@@ -17,6 +17,7 @@ defmodule Backend.Services.Index do
     |> order_by(asc: :name)
     |> preload(:users)
     |> Repo.paginate(page: page, page_size: @default_pages_size)
+    |> return_test(page)
   end
 
   def call(%{"f" => page_size}) do
@@ -33,14 +34,13 @@ defmodule Backend.Services.Index do
     |> Repo.paginate(page: 1, page_size: @default_pages_size)
   end
 
-  defp return_test(%Scrivener.Page{ total_pages: total_page_number} = page, page_number)do
+  defp return_test(%Scrivener.Page{total_pages: total_page_number} = page, page_number) do
     {page_number, _float} = Integer.parse(page_number)
 
-    if(page_number >= total_page_number)do
-      {:error, :true}
+    if(page_number > total_page_number) do
+      Map.replace(page, :entries, [])
     else
       page
     end
   end
-
 end

@@ -15,8 +15,9 @@ defmodule Backend.Oauth.Refresh do
 
   end
 
-  defp refreshing({:error, _error } = error)do
+  defp refreshing({:error, :no_token } = error)do
     error
   end
+
 
 end

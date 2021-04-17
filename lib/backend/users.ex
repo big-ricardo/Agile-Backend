@@ -48,4 +48,8 @@ defmodule Backend.Users do
      id
     end
 
+    def getToken(conn)do
+      Guardian.Plug.current_token(conn)
+    end
+
 end
